@@ -13,14 +13,29 @@ use Kreait\Firebase\Exception\MessagingException;
 use Kreait\Firebase\Exception\FirebaseException;
 use Illuminate\Support\Facades\Log;
 
+use RuntimeException;
+
 class PushNotificationService
 {
     protected $messaging;
-
     public function __construct()
     {
+        $credentials = config('services.firebase.credentials');
+    
+        if (!$credentials) {
+            throw new RuntimeException(
+                'Firebase credentials path is not set. Check FIREBASE_CREDENTIALS in .env'
+            );
+        }
+    
+        if (!file_exists($credentials)) {
+            throw new RuntimeException(
+                "Firebase credentials file not found at: {$credentials}"
+            );
+        }
+    
         $this->messaging = (new Factory)
-            ->withServiceAccount(env('FIREBASE_CREDENTIALS'))
+            ->withServiceAccount($credentials)
             ->createMessaging();
     }
 
