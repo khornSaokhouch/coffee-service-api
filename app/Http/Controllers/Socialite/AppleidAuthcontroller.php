@@ -22,7 +22,7 @@ class AppleidAuthController extends Controller
     public function __construct()
     {
         $this->auth = (new Factory)
-            ->withServiceAccount(env('FIREBASE_CREDENTIALS'))
+            ->withServiceAccount(config('services.firebase.credentials'))
             ->createAuth();
     }
     

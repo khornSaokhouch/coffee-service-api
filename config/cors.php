@@ -17,7 +17,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'],
+    'allowed_origins' => [
+        'http://localhost:3000',
+        'https://dashboard-git-master-khornsaokhouchs-projects.vercel.app'
+    ],
 
     'allowed_origins_patterns' => [],
 
